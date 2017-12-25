@@ -8,12 +8,14 @@
     <div class="">
       <h1>Chatty</h1>
     </div>
-
+    {% for post in posts %}
     <div class="">
-      <p>published:</p>
-      <h2>Post title</h2>
-      <p>Content</p>
+      <p>published: {{ post.published_date }}</p>
+      <h2>{{ post.title }}</h2>
+      <p>{{ post.text|linebreaksbr }}</p>
     </div>
-    
+    {% endfor %}
+
+
   </body>
 </html>
