@@ -1,0 +1,58 @@
+{% extends 'chatty/base.html' %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-8">
+    <h1>{{ post.title }}</h1>
+    {% if post.published_date %}
+      <div class="date">
+        <p>Published: {{ post.published_date }}</p>
+      </div>
+    {% endif %}
+    <p>author: {{ post.author }}</p>
+
+
+    <div class="botui-app-container" id="chat-app">
+      <bot-ui></bot-ui>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+
+    {% if post.author == request.user %}
+    <h2>Add a new Message</h2>
+    <form class="post-form" method="post">{% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="save btn btn-primary">Save</button>
+    </form>
+
+    <button type="button" class="btn btn-outline-secondary"><a href="{% url 'post_edit' pk=post.pk %}">Edit</a></button>
+    <button type="button" class="btn btn-outline-secondary"><a href="{% url 'post_delete' pk=post.pk %}">Delete</a></button>
+    {% endif %}
+  </div>
+
+    <script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
+    <script src="https://unpkg.com/botui/build/botui.min.js"></script>
+    <script type="text/javascript">
+
+      var botui = new BotUI('chat-app');
+      {% for message in messages %}
+      var delaytime = {{ message.order }} - 1;
+
+      if ( {{ message.human |yesno:"true,false"}} ) {
+        botui.message.add({
+          human: true,
+          delay:1000 * delaytime,
+          content:"{{ message.text }}"
+        });
+      } else {
+        botui.message.add({
+          delay:1000 * delaytime,
+          content:"{{ message.text }}"
+        });
+      }
+      {% endfor %}
+    </script>
+</div>
+{% endblock %}

@@ -1,21 +1,12 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Chatty</title>
-  </head>
-  <body>
-    <div class="">
-      <h1>Chatty</h1>
-    </div>
-    {% for post in posts %}
-    <div class="">
-      <p>published: {{ post.published_date }}</p>
-      <h2>{{ post.title }}</h2>
-      <p>{{ post.text|linebreaksbr }}</p>
-    </div>
-    {% endfor %}
+{% extends 'chatty/base.html' %}
 
+{% block content %}
 
-  </body>
-</html>
+  {% for post in posts %}
+  <div class="post">
+    <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+    <p>author: {{ post.author }}</p>
+    <p>published: {{ post.published_date }}</p>
+  </div>
+  {% endfor %}
+{% endblock %}

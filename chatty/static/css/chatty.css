@@ -1,0 +1,26 @@
+.navbar, .navbar-header, .navbar-brand {
+  background-color: #ff9400;
+}
+
+.content {
+    margin-left: 40px;
+}
+
+.save {
+    float: right;
+}
+
+.post-form textarea, .post-form input {
+    width: 100%;
+}
+
+.top-menu, .top-menu:hover, .top-menu:visited {
+    color: #ffffff;
+    float: right;
+    font-size: 26pt;
+    margin-right: 20px;
+}
+
+.post {
+    margin-bottom: 30px;
+}
